@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{478A1A91-38F7-4BFD-950F-31CE152BE758}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SWMMUTVGM1</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="source5_1_012 - 副本\climate.c" />
+    <ClCompile Include="source5_1_012 - 副本\controls.c" />
+    <ClCompile Include="source5_1_012 - 副本\culvert.c" />
+    <ClCompile Include="source5_1_012 - 副本\datetime.c" />
+    <ClCompile Include="source5_1_012 - 副本\dwflow.c" />
+    <ClCompile Include="source5_1_012 - 副本\dynwave.c" />
+    <ClCompile Include="source5_1_012 - 副本\error.c" />
+    <ClCompile Include="source5_1_012 - 副本\exfil.c" />
+    <ClCompile Include="source5_1_012 - 副本\findroot.c" />
+    <ClCompile Include="source5_1_012 - 副本\flowrout.c" />
+    <ClCompile Include="source5_1_012 - 副本\forcmain.c" />
+    <ClCompile Include="source5_1_012 - 副本\gage.c" />
+    <ClCompile Include="source5_1_012 - 副本\gwater.c" />
+    <ClCompile Include="source5_1_012 - 副本\hash.c" />
+    <ClCompile Include="source5_1_012 - 副本\hotstart.c" />
+    <ClCompile Include="source5_1_012 - 副本\iface.c" />
+    <ClCompile Include="source5_1_012 - 副本\infil.c" />
+    <ClCompile Include="source5_1_012 - 副本\inflow.c" />
+    <ClCompile Include="source5_1_012 - 副本\input.c" />
+    <ClCompile Include="source5_1_012 - 副本\inputrpt.c" />
+    <ClCompile Include="source5_1_012 - 副本\keywords.c" />
+    <ClCompile Include="source5_1_012 - 副本\kinwave.c" />
+    <ClCompile Include="source5_1_012 - 副本\landuse.c" />
+    <ClCompile Include="source5_1_012 - 副本\lid.c" />
+    <ClCompile Include="source5_1_012 - 副本\lidproc.c" />
+    <ClCompile Include="source5_1_012 - 副本\link.c" />
+    <ClCompile Include="source5_1_012 - 副本\massbal.c" />
+    <ClCompile Include="source5_1_012 - 副本\mathexpr.c" />
+    <ClCompile Include="source5_1_012 - 副本\mempool.c" />
+    <ClCompile Include="source5_1_012 - 副本\node.c" />
+    <ClCompile Include="source5_1_012 - 副本\odesolve.c" />
+    <ClCompile Include="source5_1_012 - 副本\output.c" />
+    <ClCompile Include="source5_1_012 - 副本\project.c" />
+    <ClCompile Include="source5_1_012 - 副本\qualrout.c" />
+    <ClCompile Include="source5_1_012 - 副本\rain.c" />
+    <ClCompile Include="source5_1_012 - 副本\rdii.c" />
+    <ClCompile Include="source5_1_012 - 副本\report.c" />
+    <ClCompile Include="source5_1_012 - 副本\roadway.c" />
+    <ClCompile Include="source5_1_012 - 副本\routing.c" />
+    <ClCompile Include="source5_1_012 - 副本\runoff.c" />
+    <ClCompile Include="source5_1_012 - 副本\shape.c" />
+    <ClCompile Include="source5_1_012 - 副本\snow.c" />
+    <ClCompile Include="source5_1_012 - 副本\stats.c" />
+    <ClCompile Include="source5_1_012 - 副本\statsrpt.c" />
+    <ClCompile Include="source5_1_012 - 副本\subcatch.c" />
+    <ClCompile Include="source5_1_012 - 副本\surfqual.c" />
+    <ClCompile Include="source5_1_012 - 副本\swmm5.c" />
+    <ClCompile Include="source5_1_012 - 副本\table.c" />
+    <ClCompile Include="source5_1_012 - 副本\toposort.c" />
+    <ClCompile Include="source5_1_012 - 副本\transect.c" />
+    <ClCompile Include="source5_1_012 - 副本\treatmnt.c" />
+    <ClCompile Include="source5_1_012 - 副本\xsect.c" />
+    <ClCompile Include="SWMM_UTVGM_1.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source5_1_012 - 副本\consts.h" />
+    <ClInclude Include="source5_1_012 - 副本\datetime.h" />
+    <ClInclude Include="source5_1_012 - 副本\enums.h" />
+    <ClInclude Include="source5_1_012 - 副本\error.h" />
+    <ClInclude Include="source5_1_012 - 副本\exfil.h" />
+    <ClInclude Include="source5_1_012 - 副本\findroot.h" />
+    <ClInclude Include="source5_1_012 - 副本\funcs.h" />
+    <ClInclude Include="source5_1_012 - 副本\globals.h" />
+    <ClInclude Include="source5_1_012 - 副本\hash.h" />
+    <ClInclude Include="source5_1_012 - 副本\headers.h" />
+    <ClInclude Include="source5_1_012 - 副本\infil.h" />
+    <ClInclude Include="source5_1_012 - 副本\keywords.h" />
+    <ClInclude Include="source5_1_012 - 副本\lid.h" />
+    <ClInclude Include="source5_1_012 - 副本\macros.h" />
+    <ClInclude Include="source5_1_012 - 副本\mathexpr.h" />
+    <ClInclude Include="source5_1_012 - 副本\mempool.h" />
+    <ClInclude Include="source5_1_012 - 副本\objects.h" />
+    <ClInclude Include="source5_1_012 - 副本\odesolve.h" />
+    <ClInclude Include="source5_1_012 - 副本\swmm5.h" />
+    <ClInclude Include="source5_1_012 - 副本\text.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source5_1_012 - 副本\swmm5.def" />
+    <None Include="source5_1_012 - 副本\xsect.dat" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

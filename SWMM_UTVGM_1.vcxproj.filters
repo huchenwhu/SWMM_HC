@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SWMM_UTVGM_1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\climate.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\controls.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\culvert.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\datetime.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\dwflow.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\dynwave.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\error.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\exfil.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\findroot.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\flowrout.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\forcmain.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\gage.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\gwater.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\hash.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\hotstart.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\iface.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\infil.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\inflow.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\input.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\inputrpt.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\keywords.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\kinwave.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\landuse.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\lid.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\lidproc.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\link.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\massbal.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\mathexpr.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\mempool.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\node.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\odesolve.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\output.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\project.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\qualrout.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\rain.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\rdii.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\report.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\roadway.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\routing.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\runoff.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\shape.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\snow.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\stats.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\statsrpt.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\subcatch.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\surfqual.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\swmm5.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\table.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\toposort.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\transect.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\treatmnt.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source5_1_012 - 副本\xsect.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source5_1_012 - 副本\consts.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\datetime.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\enums.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\error.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\exfil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\findroot.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\funcs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\globals.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\hash.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\headers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\infil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\keywords.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\lid.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\macros.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\mathexpr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\mempool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\objects.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\odesolve.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\swmm5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source5_1_012 - 副本\text.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source5_1_012 - 副本\swmm5.def">
+      <Filter>源文件</Filter>
+    </None>
+    <None Include="source5_1_012 - 副本\xsect.dat" />
+  </ItemGroup>
+</Project>
