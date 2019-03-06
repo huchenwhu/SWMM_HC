@@ -881,3 +881,147 @@ double getVariableValue(int varIndex)
     default:      return 0.0;
     }
 }
+
+
+
+
+double gwater_getGroundwaternew(int j, double evap, double infil, double tStep)
+//
+
+//  Purpose: computes groundwater flow from subcatchment during current time step
+//           and compute the soil moisture
+//  Input:   j     = subcatchment index
+//           evap  = pervious surface evaporation volume consumed (ft3)
+//           infil = surface infiltration volume (ft3)
+//           tStep = time step (sec)
+//  Output:  none
+//
+
+//  Note: local "area" variable was replaced with shared variable "Area". //   //(5.1.008)
+
+{
+	int    n;                          // node exchanging groundwater
+	double x[2];                       // upper moisture content & lower depth 
+	double vUpper;                     // upper vol. available for percolation
+	double nodeFlow;                   // max. possible GW flow from node
+
+	double SM;                        // soil moisture at the end of this moment, which is used for the calculation for the runoff at the next time step
+
+
+	//initial SM 
+	SM = 0;
+	// --- save subcatchment's groundwater and aquifer objects to 
+	//     shared variables
+	GW = Subcatch[j].groundwater;
+	if (GW == NULL) return;
+	LatFlowExpr = Subcatch[j].gwLatFlowExpr;                                   //(5.1.007)
+	DeepFlowExpr = Subcatch[j].gwDeepFlowExpr;                                 //(5.1.007)
+	A = Aquifer[GW->aquifer];
+
+	// --- get fraction of total area that is pervious
+	FracPerv = subcatch_getFracPerv(j);
+	if (FracPerv <= 0.0) return;
+	Area = Subcatch[j].area;
+
+	// --- convert infiltration volume (ft3) to equivalent rate
+	//     over entire GW (subcatchment) area
+	infil = infil / Area / tStep;
+	Infil = infil;
+	Tstep = tStep;
+
+	// --- convert pervious surface evaporation already exerted (ft3)
+	//     to equivalent rate over entire GW (subcatchment) area
+	evap = evap / Area / tStep;
+
+	// --- convert max. surface evap rate (ft/sec) to a rate
+	//     that applies to GW evap (GW evap can only occur
+	//     through the pervious land surface area)
+	MaxEvap = Evap.rate * FracPerv;
+
+	// --- available subsurface evaporation is difference between max.
+	//     rate and pervious surface evap already exerted
+	AvailEvap = MAX((MaxEvap - evap), 0.0);
+
+	// --- save total depth & outlet node properties to shared variables
+	TotalDepth = GW->surfElev - GW->bottomElev;
+	if (TotalDepth <= 0.0) return;
+	n = GW->node;
+
+	// --- establish min. water table height above aquifer bottom at which
+	//     GW flow can occur (override node's invert if a value was provided
+	//     in the GW object)
+	if (GW->nodeElev != MISSING) Hstar = GW->nodeElev - GW->bottomElev;
+	else Hstar = Node[n].invertElev - GW->bottomElev;
+
+	// --- establish surface water height (relative to aquifer bottom)
+	//     for drainage system node connected to the GW aquifer
+	if (GW->fixedDepth > 0.0)
+	{
+		Hsw = GW->fixedDepth + Node[n].invertElev - GW->bottomElev;
+	}
+	else Hsw = Node[n].newDepth + Node[n].invertElev - GW->bottomElev;
+
+	// --- store state variables (upper zone moisture content, lower zone
+	//     depth) in work vector x
+	x[THETA] = GW->theta;
+	x[LOWERDEPTH] = GW->lowerDepth;
+
+	// --- set limit on percolation rate from upper to lower GW zone
+	vUpper = (TotalDepth - x[LOWERDEPTH]) * (x[THETA] - A.fieldCapacity);
+	vUpper = MAX(0.0, vUpper);
+	MaxUpperPerc = vUpper / tStep;
+
+	// --- set limit on GW flow out of aquifer based on volume of lower zone
+	MaxGWFlowPos = x[LOWERDEPTH] * A.porosity / tStep;
+
+	// --- set limit on GW flow into aquifer from drainage system node
+	//     based on min. of capacity of upper zone and drainage system
+	//     inflow to the node
+	MaxGWFlowNeg = (TotalDepth - x[LOWERDEPTH]) * (A.porosity - x[THETA])
+		/ tStep;
+	nodeFlow = (Node[n].inflow + Node[n].newVolume / tStep) / Area;
+	MaxGWFlowNeg = -MIN(MaxGWFlowNeg, nodeFlow);
+
+	// --- integrate eqns. for d(Theta)/dt and d(LowerDepth)/dt
+	//     NOTE: ODE solver must have been initialized previously
+	odesolve_integrate(x, 2, 0, tStep, GWTOL, tStep, getDxDt);
+
+	// --- keep state variables within allowable bounds
+	x[THETA] = MAX(x[THETA], A.wiltingPoint);
+	if (x[THETA] >= A.porosity)
+	{
+		x[THETA] = A.porosity - XTOL;
+		x[LOWERDEPTH] = TotalDepth - XTOL;
+	}
+	x[LOWERDEPTH] = MAX(x[LOWERDEPTH], 0.0);
+	if (x[LOWERDEPTH] >= TotalDepth)
+	{
+		x[LOWERDEPTH] = TotalDepth - XTOL;
+	}
+
+	// --- save new values of state values
+	GW->theta = x[THETA];
+	GW->lowerDepth = x[LOWERDEPTH];
+	getFluxes(GW->theta, GW->lowerDepth);
+	GW->oldFlow = GW->newFlow;
+	GW->newFlow = GWFlow;
+	GW->evapLoss = UpperEvap + LowerEvap;
+
+	//--- find max. infiltration volume (as depth over
+	//    the pervious portion of the subcatchment)
+	//    that upper zone can support in next time step
+	GW->maxInfilVol = (TotalDepth - x[LOWERDEPTH]) *
+		(A.porosity - x[THETA]) / FracPerv;
+
+	// --- update GW mass balance
+	updateMassBal(Area, tStep);
+
+	// --- update GW statistics                                                //(5.1.008)
+	stats_updateGwaterStats(j, infil, GW->evapLoss, GWFlow, LowerLoss,         //(5.1.008)
+		GW->theta, GW->lowerDepth + GW->bottomElev, tStep);                    //(5.1.008)
+
+	
+	SM = GW->theta + GW->lowerDepth; // using the soil moisture content  
+	return SM;
+
+}

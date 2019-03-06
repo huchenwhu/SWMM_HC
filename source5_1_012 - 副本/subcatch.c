@@ -105,6 +105,10 @@ static  char *RunoffRoutingWords[] = { w_OUTLET,  w_IMPERV, w_PERV, NULL};
 static void   getNetPrecip(int j, double* netPrecip, double tStep);
 static double getSubareaRunoff(int subcatch, int subarea, double area,         //(5.1.008)
               double rainfall, double evap, double tStep);
+
+static double getSubareaRunoffnew(int subcatch, int subarea, double area,         // new for TVGM 
+	double rainfall, double evap, double tStep, double SM);
+
 static double getSubareaInfil(int j, TSubarea* subarea, double precip,
               double tStep);
 static double findSubareaRunoff(TSubarea* subarea, double tRunoff);            //(5.1.008)
@@ -654,6 +658,8 @@ double subcatch_getRunoff(int j, double tStep)
     double vOutflow  = 0.0;            // runoff volume leaving subcatch (ft3)
     double runoff    = 0.0;            // total runoff flow on subcatch (cfs)
     double evapRate  = 0.0;            // potential evaporation rate (ft/sec)
+	
+	double SM = 0.0;     // soil moisture from the GW function 
 
     // --- initialize shared water balance variables
     Vevap     = 0.0;
@@ -665,6 +671,9 @@ double subcatch_getRunoff(int j, double tStep)
     VlidOut   = 0.0;
     VlidDrain = 0.0;
     VlidReturn = 0.0;
+	
+	
+
 
     // --- find volume of inflow to non-LID portion of subcatchment as existing
     //     ponded water + any runon volume from upstream areas;
@@ -687,6 +696,16 @@ double subcatch_getRunoff(int j, double tStep)
     if ( Evap.dryOnly && Subcatch[j].rainfall > 0.0 ) evapRate = 0.0;
     else evapRate = Evap.rate;
 
+
+	// compute the soil moisture based on the groundwater function
+	if (!IgnoreGwater)
+	{
+		SM = Subcatch[j].groundwater->theta + Subcatch[j].groundwater->lowerDepth;
+	}
+	
+
+
+
     // --- examine each type of sub-area (impervious w/o depression storage,
     //     impervious w/ depression storage, and pervious)
     if ( nonLidArea > 0.0 ) for (i = IMPERV0; i <= PERV; i++)
@@ -694,8 +713,12 @@ double subcatch_getRunoff(int j, double tStep)
         // --- get runoff from sub-area updating Vevap, Vpevap,
         //     Vinfil & Voutflow)
         area = nonLidArea * Subcatch[j].subArea[i].fArea;
-        Subcatch[j].subArea[i].runoff =
-            getSubareaRunoff(j, i, area, netPrecip[i], evapRate, tStep);
+      //  Subcatch[j].subArea[i].runoff =
+        //    getSubareaRunoff(j, i, area, netPrecip[i], evapRate, tStep);
+		Subcatch[j].subArea[i].runoff = 
+			getSubareaRunoffnew(j, i, area, netPrecip[i], evapRate, tStep, SM); // new function !
+
+
         runoff += Subcatch[j].subArea[i].runoff * area;
     }
 
@@ -709,6 +732,7 @@ double subcatch_getRunoff(int j, double tStep)
     // --- update groundwater levels & flows if applicable
     if ( !IgnoreGwater && Subcatch[j].groundwater )
     {
+		
         gwater_getGroundwater(j, Vpevap, Vinfil+VlidInfil, tStep);             //(5.1.010)
     }
 
@@ -1119,5 +1143,121 @@ void  getDdDt(double t, double* d, double* dddt)
     }
     *dddt = ix - rx;
 }
+
+// new getsubareaRunoff function, the SM is considered and the pervious area uses TVGM for runoff calculation
+double getSubareaRunoffnew(int j, int i, double area, double precip, double evap,
+	double tStep, double SM)
+	//
+	//  Purpose: computes runoff & losses from a subarea over the current time step.
+	//  Input:   j = subcatchment index
+	//           i = subarea index
+	//           area = sub-area area (ft2)
+	//           precip = rainfall + snowmelt over subarea (ft/sec)
+	//           evap = evaporation (ft/sec)
+	//           tStep = time step (sec)
+	//  Output:  returns runoff rate from the sub-area (cfs);
+	//           updates shared variables Vinflow, Vevap, Vpevap, Vinfil & Voutflow.
+	//
+{
+	double    tRunoff;                 // time over which runoff occurs (sec)
+	double    surfMoisture;            // surface water available (ft/sec)
+	double    surfEvap;                // evap. used for surface water (ft/sec)
+	double    infil = 0.0;             // infiltration rate (ft/sec)
+	double    runoff = 0.0;            // runoff rate (ft/sec)
+	TSubarea* subarea;                 // pointer to subarea being analyzed
+
+	double Rs = 0.0;   // direct runoff 
+
+
+	// --- no runoff if no area
+	if (area == 0.0) return 0.0;
+
+	// --- assign pointer to current subarea
+	subarea = &Subcatch[j].subArea[i];
+
+	// --- assume runoff occurs over entire time step
+	tRunoff = tStep;
+
+	// --- determine evaporation loss rate
+	surfMoisture = subarea->depth / tStep;
+	surfEvap = MIN(surfMoisture, evap);
+
+	// --- compute infiltration loss rate
+	//if (i == PERV) infil = getSubareaInfil(j, subarea, precip, tStep);
+
+	// --- add precip to other subarea inflows
+	subarea->inflow += precip;
+	surfMoisture += subarea->inflow;
+
+	// --- update total inflow, evaporation & infiltration volumes
+	Vinflow += precip * area * tStep;
+	Vevap += surfEvap * area * tStep;
+	if (i == PERV) Vpevap += Vevap;
+	
+
+	// --- if losses exceed available moisture then no ponded water remains
+	//if (surfEvap + infil >= surfMoisture)
+	//{
+	//	subarea->depth = 0.0;
+	//}
+
+	//// --- otherwise reduce inflow by losses and update depth
+	////     of ponded water and time over which runoff occurs
+	//else
+	//{
+	//	subarea->inflow -= surfEvap + infil;
+	//	updatePondedDepth(subarea, &tRunoff);
+	//}
+
+	if (surfEvap>=surfMoisture)
+	{
+		subarea->depth = 0.0;
+	}
+	else
+	{
+		Rs = getTVGMrunoff(j, precip, evap, SM, tStep);
+		infil = surfMoisture - Rs - surfEvap; // infiltration only occurs in the pervious area
+		subarea->depth = Rs;
+		updatePondedDepth(subarea, &tRunoff);
+	}
+
+	Vinfil += infil * area * tStep;
+
+	// --- compute runoff based on updated ponded depth
+	runoff = findSubareaRunoff(subarea, tRunoff);
+
+	// --- compute runoff volume leaving subcatchment for mass balance purposes
+	//     (fOutlet is the fraction of this subarea's runoff that goes to the
+	//     subcatchment outlet as opposed to another subarea of the subcatchment)
+	Voutflow += subarea->fOutlet * runoff * area * tStep;
+	return runoff;
+}
+
+
+// runoff function for TVGM, where soil moisture and precipitation itensity are considered 
+double getTVGMrunoff(int j, double Precip, double evap, double SM, double tstep)
+{
+	double G = 0;  // runoff coefficient 
+	double Rs = 0; // direct runoff calculated by TVGM
+
+	double g1 = 0.5; // parameter for runoff calculation 
+	double g2 = 0.5;// parameter for runoff calculation
+	double g3 = 0.5; // parameter for runoff calculation
+	double netP;  // net precipitation
+
+	netP = Precip - evap;
+	G = g1 * pow(SM, g2)*pow(netP, g3);
+	if (G > 1 || G < 0) G == 0;
+
+	Rs = G * netP;
+
+	return Rs;
+
+}
+
+
+
+
+
 
 //=============================================================================

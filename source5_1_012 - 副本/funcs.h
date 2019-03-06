@@ -170,6 +170,9 @@ void    gwater_setState(int subcatch, double x[]);
 
 void    gwater_getGroundwater(int subcatch, double evap, double infil,
         double tStep);
+
+double gwater_getGroundwaternew(int subcatch, double evap, double infil,
+	double tStep);
 double  gwater_getVolume(int subcatch);
 
 //-----------------------------------------------------------------------------
